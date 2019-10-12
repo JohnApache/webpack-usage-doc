@@ -1,0 +1,47 @@
+{
+  "name": "webpack-usage-doc",
+  "version": "1.0.0",
+  "description": "> 全文基于 webpack **v4.41.0**版本",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:dev": "webpack",
+    "build:prod": "webpack --env.NODE_ENV=prod",
+    "build:lib": "webpack --config ./webpack.lib.config.js",
+    "start:dev": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnApache/webpack-usage-doc.git"
+  },
+  "keywords": [],
+  "author": "JohnApache",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JohnApache/webpack-usage-doc/issues"
+  },
+  "homepage": "https://github.com/JohnApache/webpack-usage-doc#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/runtime-corejs3": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.0",
+    "exports-loader": "^0.7.0",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "imports-loader": "^0.8.0",
+    "style-loader": "^1.0.0",
+    "ts-loader": "^6.2.0",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.1",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2",
+    "webpack-manifest-plugin": "^2.2.0",
+    "webpack-merge": "^4.2.2",
+    "workbox-webpack-plugin": "^4.3.1",
+    "xml-loader": "^1.2.1"
+  }
+}
