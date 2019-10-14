@@ -57,7 +57,7 @@ const WebpackProdConfig = merge(base, {
             cleanupOutdatedCaches: true,//删除过时、老版本的缓存
             
             //最终生成的service worker地址，这个地址和webpack的output地址有关
-            swDest: '../sw.js', 
+            swDest: './sw.js', 
             // include: [
             // ], 
             //缓存规则，可用正则匹配请求，进行缓存
