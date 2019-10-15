@@ -1,8 +1,11 @@
 const Koa = require('koa');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
-const webpackDevMiddle = require('webpack-dev-middleware');
-const webpackHotMiddle = require('webpack-hot-middleware');
+const {
+    koaWebpackDevMiddleware, 
+    koaWebpackHotMiddleware
+} = require('@dking/koa-webpack-middleware');
+
 const open = require('open');
 const path = require('path');
 const merge = require('webpack-merge');
@@ -19,46 +22,7 @@ const config = merge(webpackConfig(), {
 console.log(config);
 const compiler = webpack(config);
 
-const applyExpressMiddleware = (expressMiddleware, req, res) => {
-    const _send = res.send;
-    return new Promise((resolve, reject) => {
-        try {
-            res.send = (...params) => {
-                _send && _send.apply(res, params) && resolve(false);
-            }
-            expressMiddleware(req, res, () => resolve(true))
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
-
-
-const KoaWebpackDevMiddleware = (compiler, options) => {
-    const middleware = webpackDevMiddle(compiler, options);
-    return async (ctx, next) => {
-        const hasNext = await applyExpressMiddleware(middleware, ctx.req, {
-            ...ctx.res,
-            send(content) { return ctx.body = content },
-            setHeader(...params) {
-                ctx.set.apply(ctx, params);
-            }
-        })
-        hasNext && await next();
-    }
-}
-
-
-const KoaWebpackHotMiddleware = (compiler, options) => {
-    const middleware = webpackHotMiddle(compiler, options);
-    return async(ctx, next) => {
-        const hasNext = await applyExpressMiddleware(middleware, ctx.req, ctx.res);
-        hasNext && await next()
-    }
-}
-
-
-app.use(KoaWebpackDevMiddleware(compiler, {
+app.use(koaWebpackDevMiddleware(compiler, {
     host: 'localhost',
     contentBase: './dist',
     log: false,
@@ -68,7 +32,7 @@ app.use(KoaWebpackDevMiddleware(compiler, {
     }
 }))
 
-app.use(KoaWebpackHotMiddleware(compiler, {
+app.use(koaWebpackHotMiddleware(compiler, {
     log: false,
     path: "/__webpack_hmr",
     heartbeat: 2000,
