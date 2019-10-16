@@ -7,8 +7,9 @@ const BaseConfig = {
     output: {
         filename: 'utils.js',
         path: path.resolve(__dirname, 'distLib'),
-        library: 'utils',
-        libraryTarget: 'umd'
+        library: "MyLibrary",
+        libraryTarget: "umd",
+        globalObject: "this"
     },
     devtool: 'source-map',
     externals: {
